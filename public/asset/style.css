@@ -1,0 +1,38 @@
+.hero {
+    position: relative;
+    height: calc(100vh - 70px);
+    margin-top: 70px;
+    background: #fff;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+/* TEXT */
+.hero-text {
+    width: 45%;
+    padding-left: 80px;
+    z-index: 2;
+    color: #000;
+}
+
+.hero-text h1 {
+    font-size: 48px;
+}
+
+/* IMAGE WRAPPER */
+.hero-image {
+    position: absolute;
+    right: -120px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 45vw;          
+    max-width: 500px;
+}
+
+.hero-image img {
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    border-radius: 50%;
+    object-fit: cover;
+}
