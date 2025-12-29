@@ -9,7 +9,9 @@ class userController extends Controller
 {
     //
     public function index(){
-        return view('user.home');
+        $data['utama'] = Berita::latest()->first();
+        $data['lainnya'] = Berita::latest()->skip(1)->take(4)->get();
+        return view('home',$data);
     }
     public function kontakKami(){
         return view('kontakKami');

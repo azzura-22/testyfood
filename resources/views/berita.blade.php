@@ -5,9 +5,6 @@
 @section('content')
 
 <style>
-/* ===============================
-   HERO KONTAK (SAMA DENGAN TENTANG)
-================================ */
 .hero-kontak{
     height:340px;
     background:url('{{ asset("asset/food/WEBSITE MAGANG (TASTY FOOD)/ASET/Group 70.png") }}')

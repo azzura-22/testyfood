@@ -1,14 +1,22 @@
 @extends('admin.template')
+
 @section('content')
+
+{{-- ================= BUTTON TAMBAH PROFILE ================= --}}
 @if ($perusahaan->count() < 1)
-<button class="btn btn-primary mb-2" data-bs-toggle="modal" data-bs-target="#addModal">
-            + Tambah profile
-    </button>
+<button class="btn btn-primary mb-3" data-bs-toggle="modal" data-bs-target="#createModal">
+    + Tambah Profile
+</button>
 @else
-anda sudah memiliki profile perusahaan
+<div class="alert alert-info mb-3">
+    Anda sudah memiliki profile perusahaan
+</div>
 @endif
-<div class="card-body table-responsive">
-    <table id="perusahaanTable" class="table table-striped table-bordered nowrap" style="width:100%">
+
+{{-- ================= TABLE ================= --}}
+<div class="card">
+    <div class="card-body table-responsive">
+        <table class="table table-bordered table-striped nowrap" style="width:100%">
             <thead>
                 <tr>
                     <th>ID</th>
@@ -23,7 +31,7 @@ anda sudah memiliki profile perusahaan
             </thead>
 
             <tbody>
-                @foreach($perusahaan as $t)
+            @foreach($perusahaan as $t)
                 <tr>
                     <td>{{ $t->id }}</td>
                     <td>{{ $t->nama }}</td>
@@ -33,59 +41,125 @@ anda sudah memiliki profile perusahaan
                     <td>{{ $t->no_hp }}</td>
                     <td>{{ Str::limit($t->deskripsi, 100) }}</td>
                     <td>
-                        <a href="#" class="btn btn-warning btn-sm"
-                        data-bs-toggle="modal"
-                        data-bs-target="#editModal{{ $t->id }}">
-                        Edit
-                        </a>
+                        <button class="btn btn-warning btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#editModal{{ $t->id }}">
+                            Edit
+                        </button>
+
+                        <button class="btn btn-primary btn-sm"
+                            data-bs-toggle="modal"
+                            data-bs-target="#gambarModal{{ $t->id }}">
+                            Tambah Gambar
+                        </button>
                     </td>
                 </tr>
-                @endforeach
-            <div class="modal fade" id="addModal" tabindex="-1">
-                <div class="modal-dialog">
-                    <div class="modal-content">
+            @endforeach
+            </tbody>
 
-                        <div class="modal-header">
-                            <h5 class="modal-title">Tambah Berita</h5>
-                            <button type="button" class="btn btn-close" data-bs-dismiss="modal"></button>
-                        </div>
-                        <form action="{{route('perusahaan.store')}}" method="post" enctype="multipart/form-data">
-                        @csrf
-
-                        <div class="modal-body">
-                            <div class="mb-3">
-                                <label>Nama perusahaan</label>
-                                <input type="text" name="nama" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <textarea name="deskripsi" cols="60" rows="10">deskripsi perusahaan</textarea>
-                            </div>
-                            <div class="mb-3">
-                                <label>visi</label>
-                                <input type="text" name="visi" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label>misi</label>
-                                <input type="text" name="misi" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label>gmail</label>
-                                <input type="text" name="gmail" class="form-control" required>
-                            </div>
-                            <div class="mb-3">
-                                <label>no_hp</label>
-                                <input type="text" name="no_hp" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
-                        </div>
-                    {{-- </form> --}}
-                    </div>
-                </div>
-            </div>
-        </tbody>
-    </table>
+        </table>
+    </div>
 </div>
+
+{{-- ================= MODAL CREATE ================= --}}
+<div class="modal fade" id="createModal" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <form action="{{ route('perusahaan.store') }}" method="POST">
+                @csrf
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Profile Perusahaan</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="text" name="nama" class="form-control mb-2" placeholder="Nama perusahaan" required>
+                    <textarea name="deskripsi" class="form-control mb-2" placeholder="Deskripsi" required></textarea>
+                    <input type="text" name="visi" class="form-control mb-2" placeholder="Visi" required>
+                    <input type="text" name="misi" class="form-control mb-2" placeholder="Misi" required>
+                    <input type="email" name="gmail" class="form-control mb-2" placeholder="Email" required>
+                    <input type="text" name="no_hp" class="form-control" placeholder="No HP" required>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Simpan</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+
+{{-- ================= MODAL EDIT ================= --}}
+@foreach($perusahaan as $t)
+<div class="modal fade" id="editModal{{ $t->id }}" tabindex="-1">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+
+            <form action="#" method="POST">
+                @csrf
+                @method('PUT')
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Edit Profile Perusahaan</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="text" name="nama" class="form-control mb-2" value="{{ $t->nama }}" required>
+                    <textarea name="deskripsi" class="form-control mb-2" required>{{ $t->deskripsi }}</textarea>
+                    <input type="text" name="visi" class="form-control mb-2" value="{{ $t->visi }}" required>
+                    <input type="text" name="misi" class="form-control mb-2" value="{{ $t->misi }}" required>
+                    <input type="email" name="gmail" class="form-control mb-2" value="{{ $t->gmail }}" required>
+                    <input type="text" name="no_hp" class="form-control" value="{{ $t->no_hp }}" required>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Update</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+@endforeach
+
+{{-- ================= MODAL TAMBAH GAMBAR ================= --}}
+@foreach($perusahaan as $t)
+<div class="modal fade" id="gambarModal{{ $t->id }}" tabindex="-1">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <form action="{{ route('perusahaan.gambar.store', $t->id) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+
+                <div class="modal-header">
+                    <h5 class="modal-title">Tambah Gambar Perusahaan</h5>
+                    <button class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+
+                <div class="modal-body">
+                    <input type="file" name="nama_file" class="form-control mb-2" required>
+                    <select name="tipe" class="form-control" required>
+                        <option value="profil">Profil</option>
+                        <option value="visi">Visi</option>
+                        <option value="misi">Misi</option>
+                    </select>
+                </div>
+
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Simpan</button>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+</div>
+@endforeach
+
 @endsection

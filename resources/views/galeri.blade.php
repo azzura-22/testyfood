@@ -103,15 +103,11 @@
         <div id="foodCarousel" class="carousel slide" data-bs-ride="carousel">
 
             <div class="carousel-inner">
-                <div class="carousel-item active">
-                    <img src="{{ asset('images/slider1.jpg') }}" class="d-block w-100" alt="Food 1">
+                @foreach ($carousel as $item)
+                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                    <img src="{{ asset('storage/galeri/'.$item->path) }}" class="d-block w-100" alt="...">
                 </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('images/slider2.jpg') }}" class="d-block w-100" alt="Food 2">
-                </div>
-                <div class="carousel-item">
-                    <img src="{{ asset('images/slider3.jpg') }}" class="d-block w-100" alt="Food 3">
-                </div>
+                @endforeach
             </div>
 
             <button class="carousel-control-prev" type="button"
@@ -130,9 +126,9 @@
     <!-- GALLERY GRID -->
     <section class="gallery">
         <div class="gallery-grid">
-            @for ($i = 1; $i <= 12; $i++)
-                <img src="{{ asset('images/gallery' . $i . '.jpg') }}" alt="Gallery {{ $i }}">
-            @endfor
+            @foreach ($lainnya as $image)
+            <img src="{{ asset('storage/galeri/'.$image->path) }}" alt="Gallery Image">
+            @endforeach
         </div>
     </section>
 

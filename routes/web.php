@@ -3,6 +3,7 @@
 use App\Http\Controllers\adminConteroller;
 use App\Http\Controllers\BeritaController;
 use App\Http\Controllers\GambarController;
+use App\Http\Controllers\GambartentangController;
 use App\Http\Controllers\KomentarController;
 use App\Http\Controllers\KontakController;
 use App\Http\Controllers\TentangController;
@@ -10,9 +11,7 @@ use App\Http\Controllers\userController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('home');
-});
+Route::get('/', [userController::class, 'index'])->name('home');
 Route::get('/login', [adminConteroller::class, 'login'])->name('login');
 Route::post('/login/auth', [adminConteroller::class, 'Authlogin'])->name('login.auth');
 Route::middleware(['admin'])->group(function () {
@@ -30,6 +29,7 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/admin/galeri/store',[GambarController::class,'add'])->name('galeri.store');
     Route::get('/admin/galeri/delete/{id}',[GambarController::class,'delete'])->name('admin.deletegaleri');
     Route::put('/admin/galeri/update/{id}',[GambarController::class,'edit'])->name('galeri.update');
+    Route::post('/admin/perusahaan/gambar/store/{id}',[GambartentangController::class,'add'])->name('perusahaan.gambar.store');
 });
 
 //user

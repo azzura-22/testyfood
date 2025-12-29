@@ -63,6 +63,12 @@
 }
 </style>
 
+@php
+use App\Models\Berita;
+    $beritabesar = Berita::first();
+    $beritakecil = Berita::take(4)->get();
+@endphp
+
 
 {{-- ================= HERO ================= --}}
 <section class="home-hero py-5">
@@ -147,46 +153,65 @@
 
         <div class="row g-4">
 
-            {{-- Berita besar --}}
+            {{-- ================= BERITA BESAR ================= --}}
+            @if($utama)
             <div class="col-md-6">
-                <div class="card h-100 shadow-sm">
-                    <img src="{{ asset('asset/food/berita-1.png') }}" class="card-img-top">
+                <div class="card h-100 shadow-sm border-0">
+                    <img src="{{ asset('storage/fotoE/'.$utama->gambar) }}"
+                         class="card-img-top"
+                         style="height:260px; object-fit:cover;">
+
                     <div class="card-body">
                         <h5 class="fw-bold">
-                            LOREM IPSUM DOLOR SIT AMET, CONSECTETUR ADIPISCING ELIT
+                            {{ $utama->judul }}
                         </h5>
-                        <p>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                            Fusce scelerisque...
+
+                        <p class="text-muted small">
+                            {{ $utama->author }} ·
+                            {{ \Carbon\Carbon::parse($utama->tanggal)->format('d M Y') }}
                         </p>
-                        <a href="#" class="text-warning text-decoration-none">
+
+                        <p>
+                            {{ Str::limit($utama->isi, 120) }}
+                        </p>
+
+                        <a href="{{ route('berita.show', Crypt::encrypt($utama->id)) }}"
+                           class="text-warning text-decoration-none fw-semibold">
                             Baca selengkapnya
                         </a>
                     </div>
                 </div>
             </div>
+            @endif
 
-            {{-- Berita kecil --}}
+            {{-- ================= BERITA KECIL ================= --}}
             <div class="col-md-6">
                 <div class="row g-4">
 
-                    @for ($i = 2; $i <= 5; $i++)
+                    @foreach($lainnya as $bk)
                     <div class="col-md-6">
-                        <div class="card h-100 shadow-sm">
-                            <img src="{{ asset('asset/food/berita-'.$i.'.png') }}"
-                                 class="card-img-top">
+                        <div class="card h-100 shadow-sm border-0">
+                            <img src="{{ asset('storage/fotoE/'.$bk->gambar) }}"
+                                 class="card-img-top"
+                                 style="height:120px; object-fit:cover;">
+
                             <div class="card-body">
-                                <h6 class="fw-bold">LOREM IPSUM</h6>
-                                <p class="small">
-                                    Lorem ipsum dolor sit amet.
+                                <h6 class="fw-bold">
+                                    {{ Str::limit($bk->judul, 50) }}
+                                </h6>
+
+                                <p class="small text-muted">
+                                    {{ Str::limit($bk->isi, 60) }}
                                 </p>
-                                <a href="#" class="text-warning small text-decoration-none">
+
+                                <a href="{{ route('berita.show', Crypt::encrypt($bk->id)) }}"
+                                   class="text-warning small text-decoration-none fw-semibold">
                                     Baca selengkapnya
                                 </a>
                             </div>
                         </div>
                     </div>
-                    @endfor
+                    @endforeach
 
                 </div>
             </div>
@@ -194,6 +219,7 @@
         </div>
     </div>
 </section>
+
 
 {{-- ================= GALERI ================= --}}
 <section class="galeri py-5 bg-light">

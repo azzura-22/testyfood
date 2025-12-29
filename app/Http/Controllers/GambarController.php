@@ -10,7 +10,10 @@ class GambarController extends Controller
 {
     //
     public function index(){
-        return view('galeri');
+        $foto = Gambar::where('tipe','foto')->latest()->get();
+        $data['carousel'] = $foto->take(3);
+        $data['lainnya']  = $foto->slice(3)->take(12);
+        return view('galeri',$data);
     }
     public function add(Request $request){
      $validate = $request->validate([
