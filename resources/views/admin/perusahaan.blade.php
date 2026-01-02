@@ -12,7 +12,15 @@
     Anda sudah memiliki profile perusahaan
 </div>
 @endif
-
+@if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
 {{-- ================= TABLE ================= --}}
 <div class="card">
     <div class="card-body table-responsive">
@@ -99,7 +107,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
-            <form action="#" method="POST">
+            <form action="{{route('perusahaan.update',$t->id)}}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -161,5 +169,43 @@
     </div>
 </div>
 @endforeach
+{{-- ================= TABLE GAMBAR PERUSAHAAN ================= --}}
+<div class="card mt-4">
+    <div class="card-header">
+        <h5>Data Gambar Perusahaan</h5>
+    </div>
 
+    <div class="card-body table-responsive">
+        <table class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Tipe</th>
+                    <th>Gambar</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+
+            <tbody>
+            @foreach($perusahaan as $p)
+                @foreach($p->gambartentangs as $g)
+                <tr>
+                    <td>{{ $g->id }}</td>
+                    <td>{{ ucfirst($g->tipe) }}</td>
+                    <td>
+                        <img src="{{ asset('storage/tentang/'.$g->nama_file) }}"
+                             width="120"
+                             class="img-thumbnail">
+                    </td>
+                    <td>
+                        <a class="btn btn-danger" href="{{route('perusahaan.gambar.delete',$g->id)}}" onclick="return confirm('Yakin ingin menghapus data ini?')">delete</a>
+                    </td>
+                </tr>
+                @endforeach
+            @endforeach
+            </tbody>
+
+        </table>
+    </div>
+</div>
 @endsection

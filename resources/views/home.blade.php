@@ -227,18 +227,19 @@ use App\Models\Berita;
         <h2 class="fw-bold text-center mb-4">GALERI KAMI</h2>
 
         <div class="row g-3">
-
-            @for ($i = 1; $i <= 6; $i++)
+            @foreach ($gambar as $hideng )
             <div class="col-md-4">
-                <img src="{{ asset('asset/food/galeri-'.$i.'.png') }}"
-                     class="img-fluid rounded shadow-sm">
+                <div class="card border-0 shadow-sm">
+                    <img src="{{ asset('storage/galeri/'.$hideng->path) }}"
+                         class="card-img-top"
+                         style="height:200px; object-fit:cover;">
+                </div>
             </div>
-            @endfor
-
+            @endforeach
         </div>
 
         <div class="text-center mt-4">
-            <a href="/galeri" class="btn btn-dark px-4">
+            <a href="{{route('galeri')}}" class="btn btn-dark px-4">
                 LIHAT LEBIH BANYAK
             </a>
         </div>

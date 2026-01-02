@@ -10,10 +10,9 @@
     background:url('{{ asset("asset/food/WEBSITE MAGANG (TASTY FOOD)/ASET/Group 70.png") }}')
                center/cover no-repeat;
     position: relative;
-    z-index: 1; /* hero di bawah navbar */
+    z-index: 1;
     color:#fff;
 }
-
 .hero-kontak::after{
     content:'';
     position:absolute;
@@ -21,14 +20,11 @@
     background: rgba(0,0,0,.55);
     z-index: 1;
 }
-
 .hero-kontak .hero-content{
     position: relative;
     z-index: 2;
-    padding-top: 120px; /* OFFSET NAVBAR FIXED */
+    padding-top: 120px;
 }
-
-/* animasi card */
 .card{
     transition:.3s;
 }
@@ -40,14 +36,15 @@
 {{-- HERO --}}
 <div class="hero-kontak">
     <div class="container hero-content">
-        <h1 class="fw-bold">KONTAK KAMI</h1>
+        <h1 class="fw-bold">BERITA</h1>
     </div>
 </div>
 
 {{-- ===============================
    CONTENT
 ================================ --}}
-@if ($utama == null && $lainnya == null)
+
+@if (empty($utama) && $lainnya->isEmpty())
 
 <div class="container my-5">
     <h3 class="text-center text-muted">
@@ -57,7 +54,8 @@
 
 @else
 
-{{-- BERITA UTAMA --}}
+{{-- ================= BERITA UTAMA ================= --}}
+@if($utama)
 <section class="container my-5">
     <div class="row align-items-center g-5">
 
@@ -89,8 +87,10 @@
 
     </div>
 </section>
+@endif
 
-{{-- BERITA LAINNYA --}}
+{{-- ================= BERITA LAINNYA ================= --}}
+@if($lainnya->isNotEmpty())
 <section class="container my-5">
     <h4 class="fw-bold mb-4">BERITA LAINNYA</h4>
 
@@ -98,29 +98,26 @@
         @foreach($lainnya as $b)
         <div class="col-md-3">
             <div class="card h-100 border-0 shadow-sm rounded-4">
-
                 <img src="{{ asset('storage/fotoE/'.$b->gambar) }}"
                      class="card-img-top rounded-top-4"
                      style="height:180px; object-fit:cover;">
 
                 <div class="card-body">
                     <h6 class="fw-bold">{{ $b->judul }}</h6>
-
                     <p class="text-muted small">
                         {{ Str::limit($b->isi, 80) }}
                     </p>
-
                     <a href="{{ route('berita.show', Crypt::encrypt($b->id)) }}"
                        class="text-warning text-decoration-none small fw-semibold">
                         Baca selengkapnya
                     </a>
                 </div>
-
             </div>
         </div>
         @endforeach
     </div>
 </section>
+@endif
 
 @endif
 

@@ -10,7 +10,7 @@ class GambartentangController extends Controller
     //
     public function add ( Request $request , $id){
         $validate = $request->validate ([
-            'nama_file' => 'required|file|mimes:jpg,jpeg,png|max:2048',
+            'nama_file' => 'required|file|mimes:jpg,jpeg,png|max:5120',
             'tipe' => 'required|in:profil,visi,misi',
         ]);
         if ( $request->hasFile('nama_file')){
@@ -24,5 +24,13 @@ class GambartentangController extends Controller
             'tentang_id'=>$id,
         ]);
         return redirect()->route('admin.perusahaan')->with('success','Gambar Tentang Perusahaan Berhasil Ditambahkan');
+    }
+    public function delete($id){
+        $gambartentang = Gambartentang::findOrFail($id);
+        if (file_exists(storage_path('app/public/tentang/'.$gambartentang->nama_file))){
+            unlink(storage_path('app/public/tentang/'.$gambartentang->nama_file));
+        }
+        $gambartentang->delete();
+        return redirect()->route('admin.perusahaan')->with('success','Gambar Tentang Perusahaan Berhasil Dihapus');
     }
 }

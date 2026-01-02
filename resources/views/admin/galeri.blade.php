@@ -18,6 +18,7 @@
                 @if($item->tipe == 'foto')
                     <img src="{{ asset('storage/galeri/' . $item->path) }}"
                          class="card-img-top rounded-top-4"
+                         style="height:260px; object-fit:cover;"
                          alt="foto">
 
                 {{-- VIDEO --}}

@@ -30,6 +30,8 @@ Route::middleware(['admin'])->group(function () {
     Route::get('/admin/galeri/delete/{id}',[GambarController::class,'delete'])->name('admin.deletegaleri');
     Route::put('/admin/galeri/update/{id}',[GambarController::class,'edit'])->name('galeri.update');
     Route::post('/admin/perusahaan/gambar/store/{id}',[GambartentangController::class,'add'])->name('perusahaan.gambar.store');
+    Route::put('/admin/perusahaan/update/{id}',[TentangController::class,'edit'])->name('perusahaan.update');
+    Route::get('/admin/perusahaan/gambar/delete/{id}',[GambartentangController::class,'delete'])->name('perusahaan.gambar.delete');
 });
 
 //user

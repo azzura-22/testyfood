@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Berita;
 use App\Models\Gambar;
+use App\Models\Gambartentang;
 use App\Models\Kontak;
 use App\Models\Tentang;
 use Illuminate\Http\Request;
@@ -13,7 +14,12 @@ class adminConteroller extends Controller
 {
     //
     public function index(){
-        return view('admin.home');
+        $data['jmlBerita'] = Berita::count();
+        $data['jmlGambar'] = Gambar::count();
+        $data['jmlMasukan'] = Kontak::count();
+        $data['beritaTerbaru'] = Berita::latest()->take(5)->get();
+        $data['masukanTerbaru'] = Kontak::latest()->take(5)->get();
+        return view('admin.home',$data);
     }
     public function berita(){
         $data['berita'] = Berita::all();
@@ -32,6 +38,7 @@ class adminConteroller extends Controller
     }
     public function perusahaan(){
         $data['perusahaan'] = Tentang::all();
+        $data['gambartentang'] = Gambartentang::all();
         return view('admin.perusahaan',$data);
     }
     public function login (){
@@ -47,7 +54,12 @@ class adminConteroller extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect()->intended('/admin');
+
+            if (Auth::user()->role == 'admin') {
+                return redirect()->intended('/admin');
+            }
+            
+            return redirect()->intended('/');
         }
 
         return back()->withErrors([
