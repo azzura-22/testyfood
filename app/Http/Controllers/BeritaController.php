@@ -88,6 +88,10 @@ class BeritaController extends Controller
             ->orderBy('created_at','desc')
             ->get();
 
+        $ratingSum = Komentar::where('berita_id',$berita->id)
+            ->sum('rating');
+        $ratingCount = Komentar::where('berita_id',$berita->id)
+            ->count();
         return view('detail', compact('berita','komentar'));
     }
 }

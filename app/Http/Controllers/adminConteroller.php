@@ -23,6 +23,7 @@ class adminConteroller extends Controller
     }
     public function berita(){
         $data['berita'] = Berita::all();
+        $data['ratingSum'] = Berita::withSum('komentars', 'rating')->get();
         return view('admin.berita',$data);
     }
     public function kontak()
@@ -58,7 +59,7 @@ class adminConteroller extends Controller
             if (Auth::user()->role == 'admin') {
                 return redirect()->intended('/admin');
             }
-            
+
             return redirect()->intended('/');
         }
 

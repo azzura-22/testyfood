@@ -80,7 +80,12 @@
 <div class="container py-5">
     <div class="card contact-card border-0 p-4">
         <h4 class="fw-bold mb-4">KONTAK KAMI</h4>
-
+        @if (session('success'))
+            <div class="alert alert-success">
+                {{ session('success') }}
+            </div>
+        @endif
+        
         <form action="{{ route('kontak.store') }}" method="POST">
             @csrf
             <div class="row g-3">

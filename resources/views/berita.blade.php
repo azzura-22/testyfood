@@ -77,6 +77,13 @@
                 {{ ucfirst($utama->kategori) }}
             </span>
 
+            <span class="badge bg-warning text-dark ms-3">
+                Rating:
+                {{
+                    $ratingSum->where('id', $utama->id)->first()->komentars_sum_rating ?? 0
+                }}
+            </span>
+
             <p>{{ Str::limit($utama->isi, 250) }}</p>
 
             <a href="{{ route('berita.show', Crypt::encrypt($utama->id)) }}"
@@ -107,6 +114,12 @@
                     <p class="text-muted small">
                         {{ Str::limit($b->isi, 80) }}
                     </p>
+                    <span class="badge bg-warning text-dark ms-3 mt-2">
+                        Rating:
+                        {{
+                            $ratingSum->where('id', $b->id)->first()->komentars_sum_rating ?? 0
+                        }}
+                    </span>
                     <a href="{{ route('berita.show', Crypt::encrypt($b->id)) }}"
                        class="text-warning text-decoration-none small fw-semibold">
                         Baca selengkapnya

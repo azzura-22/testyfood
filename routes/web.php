@@ -41,6 +41,8 @@ Route::get('/berita', [userController::class, 'berita'])->name('berita');
 Route::get('/berita/{id}', [BeritaController::class, 'show'])->name('berita.show');
 Route::get('/galeri', [GambarController::class, 'index'])->name('galeri');
 Route::get('/tentang', [TentangController::class, 'index'])->name('tentang');
+Route::get('/register', [userController::class, 'register'])->name('register');
+Route::post('/register/store', [userController::class, 'store'])->name('register.store');
 Route::middleware(['user'])->group(function () {
     Route::post('/komentar/store',[KomentarController::class,'komentar'])->name('komentar.store');
     Route::get('/logout', [adminConteroller::class, 'logout'])->name('logout');

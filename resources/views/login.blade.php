@@ -36,6 +36,15 @@
                         Login
                     </button>
                 </div>
+
+                <div>
+                    <p class="text-center mt-3">
+                        Belum punya akun?
+                        <a href="{{ route('register') }}" class="text-warning fw-semibold text-decoration-none">
+                            Daftar di sini
+                        </a>
+                    </p>
+                </div>
             </form>
 
             <div class="text-center mt-3">
