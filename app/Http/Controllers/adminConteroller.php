@@ -7,6 +7,7 @@ use App\Models\Gambar;
 use App\Models\Gambartentang;
 use App\Models\Kontak;
 use App\Models\Tentang;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -77,4 +78,18 @@ class adminConteroller extends Controller
         $data['galeri'] = Gambar::all();
         return view('admin.galeri',$data);
     }
+    public function user(Request $request)
+{
+    $query = User::query();
+
+    if ($request->search) {
+        $query->where('name', 'like', '%' . $request->search . '%')
+              ->orWhere('email', 'like', '%' . $request->search . '%');
+    }
+
+    $users = $query->paginate(10);
+
+    return view('admin.user', compact('users'));
+}
+
 }

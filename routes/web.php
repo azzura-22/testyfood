@@ -32,6 +32,7 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/admin/perusahaan/gambar/store/{id}',[GambartentangController::class,'add'])->name('perusahaan.gambar.store');
     Route::put('/admin/perusahaan/update/{id}',[TentangController::class,'edit'])->name('perusahaan.update');
     Route::get('/admin/perusahaan/gambar/delete/{id}',[GambartentangController::class,'delete'])->name('perusahaan.gambar.delete');
+    Route::get('/admin/user',[adminConteroller::class,'user'])->name('admin.user');
 });
 
 //user

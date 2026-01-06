@@ -106,6 +106,13 @@
                         <i class="fa-solid fa-images"></i> Galeri
                     </a>
                 </li>
+                
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::is('admin.user*') ? 'active' : '' }}"
+                    href="{{ route('admin.user') }}">
+                        <i class="fa-solid fa-users"></i> User
+                    </a>
+                </li>
 
                 <li class="nav-item">
                     <a class="nav-link {{ Route::is('admin.masukan*') ? 'active' : '' }}" href="{{ route('admin.masukan') }}">
@@ -165,7 +172,11 @@
                     <i class="fa-solid fa-images me-2"></i> Galeri
                 </a>
             </li>
-
+            <li class="nav-item">
+                <a class="nav-link px-3" href="{{ route('admin.user') }}">
+                    <i class="fa-solid fa-users me-2"></i> User
+                </a>
+            </li>
             <li class="nav-item">
                 <a class="nav-link px-3" href="{{ route('admin.masukan') }}">
                     <i class="fa-solid fa-envelope-open-text me-2"></i>
