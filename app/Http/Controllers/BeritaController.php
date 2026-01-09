@@ -48,7 +48,8 @@ class BeritaController extends Controller
         return redirect()->route('admin.berita')->with('success','Berita berhasil dihapus');
     }
 
-    public function edit (Request $request, $id){-
+    public function edit (Request $request, $id)
+    {
         $berita = Berita::findOrFail($id);
         $validate = $request->validate([
             'judul'=>'required',

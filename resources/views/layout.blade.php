@@ -219,18 +219,6 @@
         </div>
     </div>
 </nav>
-
-{{-- ===============================
-    HERO (OPTIONAL)
-=============================== --}}
-@if (View::hasSection('hero-bg'))
-<section class="hero-bg" style="background-image:url('@yield('hero-bg')')">
-    <div class="container">
-        <h1>@yield('hero-title')</h1>
-    </div>
-</section>
-@endif
-
 {{-- ===============================
     CONTENT
 =============================== --}}

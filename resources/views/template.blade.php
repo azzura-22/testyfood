@@ -28,7 +28,7 @@
     =============================== */
     .navbar{
         background:transparent;
-        padding:25px 0;
+        padding:25px 0; /* JARAK DESKTOP TETAP */
         position:fixed;
         width:100%;
         z-index:10;
@@ -46,6 +46,10 @@
     .navbar.scrolled{
         background:#ffffff !important;
         box-shadow:0 4px 12px rgba(0,0,0,.08);
+    }
+
+    .navbar-toggler-icon{
+        filter: invert(1);
     }
 
     /* ===============================
@@ -130,7 +134,23 @@
     /* ===============================
        RESPONSIVE
     =============================== */
+
+    /* DESKTOP - POSISI MENU SEPERTI SCREENSHOT */
+    @media (min-width: 992px){
+        .navbar-nav{
+            flex-direction: row;
+            align-items: center;
+            margin-left: 60px; /* JARAK MENU DARI LOGO */
+        }
+    }
+
+    /* MOBILE */
     @media (max-width: 991px){
+        .home-hero{
+            padding-top:120px;
+            text-align:center;
+        }
+
         .hero-img{
             position:static;
             transform:none;
@@ -139,12 +159,6 @@
             display:block;
         }
 
-        .home-hero{
-            padding-top:120px;
-            text-align:center;
-        }
-
-        /* NAVBAR MOBILE */
         .navbar{
             background:#fff;
         }
@@ -157,8 +171,20 @@
             box-shadow:0 12px 30px rgba(0,0,0,.15);
         }
 
-        .nav-link{
-            padding:8px 0;
+        .navbar-nav{
+            flex-direction: column;
+            gap:12px !important;
+            margin-left: 0;
+        }
+
+        .navbar-nav .nav-link{
+            padding:10px 0;
+            font-size:15px;
+            border-bottom:1px solid #eee;
+        }
+
+        .navbar-nav .nav-item:last-child .nav-link{
+            border-bottom:none;
         }
     }
     </style>
@@ -167,7 +193,7 @@
 <body class="@yield('body-class')">
 
 {{-- ===============================
-    NAVBAR (RESPONSIVE)
+    NAVBAR
 =============================== --}}
 <nav class="navbar navbar-expand-lg">
     <div class="container">
@@ -179,7 +205,7 @@
         </button>
 
         <div class="collapse navbar-collapse" id="navbarMenu">
-            <ul class="navbar-nav ms-auto gap-lg-4">
+            <ul class="navbar-nav gap-4">
                 <li class="nav-item"><a class="nav-link" href="/">HOME</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{ route('kontakKami') }}">KONTAK</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{route('tentang')}}">TENTANG</a></li>
@@ -200,7 +226,7 @@
 @yield('content')
 
 {{-- ===============================
-    FOOTER (UTUH – TIDAK DIHAPUS)
+    FOOTER
 =============================== --}}
 <footer class="footer-dark pt-5">
     <div class="container">

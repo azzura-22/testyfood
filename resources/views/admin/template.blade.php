@@ -106,7 +106,7 @@
                         <i class="fa-solid fa-images"></i> Galeri
                     </a>
                 </li>
-                
+
                 <li class="nav-item">
                     <a class="nav-link {{ Route::is('admin.user*') ? 'active' : '' }}"
                     href="{{ route('admin.user') }}">

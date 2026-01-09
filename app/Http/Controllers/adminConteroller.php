@@ -18,15 +18,21 @@ class adminConteroller extends Controller
         $data['jmlBerita'] = Berita::count();
         $data['jmlGambar'] = Gambar::count();
         $data['jmlMasukan'] = Kontak::count();
+        $data['jmlUser'] = User::count();
         $data['beritaTerbaru'] = Berita::latest()->take(5)->get();
         $data['masukanTerbaru'] = Kontak::latest()->take(5)->get();
         return view('admin.home',$data);
     }
-    public function berita(){
+    public function berita()
+    {
         $data['berita'] = Berita::all();
-        $data['ratingSum'] = Berita::withSum('komentars', 'rating')->get();
-        return view('admin.berita',$data);
+
+        $data['ratingSum'] = Berita::join('komentars', 'beritas.id', '=', 'komentars.berita_id')
+            ->sum('komentars.rating');
+
+        return view('admin.berita', $data);
     }
+
     public function kontak()
     {
         $data['masukan'] = Kontak::orderByRaw("

@@ -117,28 +117,29 @@ use App\Models\Berita;
         <div class="container">
             <div class="row g-4 justify-content-center">
 
-                @for ($i = 1; $i <= 4; $i++)
+                @php
+                    $images = [
+                        'img-1.png',
+                        'img-2.png',
+                        'img-3.png',
+                        'img-4.png'
+                    ];
+                @endphp
+
+                @foreach ($images as $img)
                 <div class="col-md-3 col-sm-6">
                     <div class="menu-card">
-
                         <div class="menu-img-wrapper">
-                            <img src="{{ asset('asset/food/sample-'.$i.'.png') }}"
-                                 class="menu-img">
+                            <img src="{{ asset('asset/food/WEBSITE MAGANG (TASTY FOOD)/ASET/'.$img) }}" class="menu-img">
                         </div>
 
                         <div class="card-body">
                             <h5 class="fw-bold mt-3">LOREM IPSUM</h5>
-                            <p>
-                                Lorem ipsum dolor sit amet,
-                                consectetur adipiscing elit.
-                                Phasellus ornare augue eu rutrum commodo.
-                            </p>
+                            <p>Lorem ipsum dolor sit amet.</p>
                         </div>
-
                     </div>
                 </div>
-                @endfor
-
+                @endforeach
             </div>
         </div>
     </div>

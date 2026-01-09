@@ -1,4 +1,4 @@
-@extends('template')
+@extends('layout')
 
 @section('content')
 
@@ -52,7 +52,7 @@
                 {!! nl2br(e($berita->isi)) !!}
             </div>
 
-            {{-- AUTHOR --}}
+            {{-- AUTHOR/PENULIS --}}
             <hr class="my-5">
 
             <div class="d-flex align-items-center justify-content-between">

@@ -7,6 +7,7 @@
     .bg-berita { background: #60a5fa; }
     .bg-masukan { background: #fbbf24; }
     .bg-galeri { background: #a78bfa; }
+    .bg-user { background: #34d399; }
 
     .card-dashboard {
         border-radius: 14px;
@@ -25,7 +26,7 @@
     <div class="alert alert-primary">
         👋 Selamat datang, <strong>{{ auth()->user()->name }}</strong>
         <br>
-        <small>Kelola data website melalui dashboard ini</small>
+        <small>Bekerja lah degan semangat &#128512;</small>
     </div>
 
     {{-- Statistik --}}
@@ -56,15 +57,28 @@
         </div>
 
         <div class="col-md-6 col-lg-3 mb-3">
-            <div class="card card-dashboard bg-galeri text-white p-3 h-100">
-                <i class="fa-solid fa-images fa-3x mb-2"></i>
-                <div class="text-end">
-                    <h6>Galeri</h6>
-                    <h4 class="fw-bold">{{ $jmlGambar }}</h4>
+            <a href="{{route('admin.galeri')}}" class="text-decoration-none">
+                <div class="card card-dashboard bg-galeri text-white p-3 h-100">
+                    <i class="fa-solid fa-images fa-3x mb-2"></i>
+                    <div class="text-end">
+                        <h6>Galeri</h6>
+                        <h4 class="fw-bold">{{ $jmlGambar }}</h4>
+                    </div>
                 </div>
-            </div>
+            </a>
         </div>
 
+        <div class="col-md-6 col-lg-3 mb-3">
+            <a href="{{route('admin.user')}}" class="text-decoration-none">
+                <div class="card card-dashboard bg-user text-white p-3 h-100">
+                    <i class="fa-solid fa-users fa-3x mb-2"></i>
+                    <div class="text-end">
+                        <h6>User</h6>
+                        <h4 class="fw-bold">{{ $jmlUser }}</h4>
+                    </div>
+                </div>
+            </a>
+        </div>
     </div>
 
     {{-- Data Terbaru --}}
