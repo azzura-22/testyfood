@@ -33,20 +33,16 @@
     background: #f7f7f7;
 }
 
-/* =======================
-   CAROUSEL
-======================= */
+
 .featured-slider {
-    background: #fff;
-    border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 60px;
+    margin-bottom: 40px;
 }
 
 .carousel-inner img {
+    width: 100%;
     height: 420px;
     object-fit: cover;
-    border-radius: 14px;
+    border-radius: 0; /* 🔥 tanpa border */
 }
 
 /* =======================
@@ -68,6 +64,12 @@
 
 .gallery-grid img:hover {
     transform: scale(1.05);
+}
+
+#foodCarousel {
+    border-radius: 22px;
+    overflow: hidden;
+    box-shadow: 0 12px 30px rgba(0,0,0,.15);
 }
 
 /* =======================
@@ -98,28 +100,32 @@
 ======================= -->
 <div class="content">
 
-    <!-- CAROUSEL -->
+    <!-- CAROUSEL (SEJAJAR CONTENT) -->
     <section class="featured-slider">
-        <div id="foodCarousel" class="carousel slide" data-bs-ride="carousel">
+        <div class="container-fluid px-0">
+            <div id="foodCarousel" class="carousel slide" data-bs-ride="carousel">
 
-            <div class="carousel-inner">
-                @foreach ($carousel as $item)
-                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                    <img src="{{ asset('storage/galeri/'.$item->path) }}" class="d-block w-100" alt="...">
+                <div class="carousel-inner">
+                    @foreach ($carousel as $item)
+                        <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                            <img src="{{ asset('storage/galeri/'.$item->path) }}"
+                                 class="d-block w-100"
+                                 alt="Carousel Image">
+                        </div>
+                    @endforeach
                 </div>
-                @endforeach
+
+                <button class="carousel-control-prev" type="button"
+                        data-bs-target="#foodCarousel" data-bs-slide="prev">
+                    <span class="carousel-control-prev-icon"></span>
+                </button>
+
+                <button class="carousel-control-next" type="button"
+                        data-bs-target="#foodCarousel" data-bs-slide="next">
+                    <span class="carousel-control-next-icon"></span>
+                </button>
+
             </div>
-
-            <button class="carousel-control-prev" type="button"
-                data-bs-target="#foodCarousel" data-bs-slide="prev">
-                <span class="carousel-control-prev-icon"></span>
-            </button>
-
-            <button class="carousel-control-next" type="button"
-                data-bs-target="#foodCarousel" data-bs-slide="next">
-                <span class="carousel-control-next-icon"></span>
-            </button>
-
         </div>
     </section>
 
@@ -127,7 +133,8 @@
     <section class="gallery">
         <div class="gallery-grid">
             @foreach ($lainnya as $image)
-            <img src="{{ asset('storage/galeri/'.$image->path) }}" alt="Gallery Image">
+                <img src="{{ asset('storage/galeri/'.$image->path) }}"
+                     alt="Gallery Image">
             @endforeach
         </div>
     </section>

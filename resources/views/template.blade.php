@@ -134,13 +134,11 @@
     /* ===============================
        RESPONSIVE
     =============================== */
-
-    /* DESKTOP - POSISI MENU SEPERTI SCREENSHOT */
     @media (min-width: 992px){
         .navbar-nav{
             flex-direction: row;
             align-items: center;
-            margin-left: 60px; /* JARAK MENU DARI LOGO */
+            margin-left: 60px;
         }
     }
 
@@ -207,14 +205,16 @@
         <div class="collapse navbar-collapse" id="navbarMenu">
             <ul class="navbar-nav gap-4">
                 <li class="nav-item"><a class="nav-link" href="/">HOME</a></li>
-                <li class="nav-item"><a class="nav-link" href="{{ route('kontakKami') }}">KONTAK</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{route('tentang')}}">TENTANG</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{route('berita')}}">BERITA</a></li>
                 <li class="nav-item"><a class="nav-link" href="{{route('galeri')}}">GALERI</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{ route('kontakKami') }}">KONTAK</a></li>
+
 
                 @if (!Auth::check())
-                    <li class="nav-item"><a class="nav-link" href="/login">LOGIN</a></li>
+                <li class="nav-item"><a class="nav-link" href="/login">LOGIN</a></li>
                 @else
+                    <li class="nav-item"><a class="nav-link" href="{{route('posting.index',Auth::User()->id)}}}">FROFILE</a></li>
                     <li class="nav-item"><a class="nav-link" href="/logout">LOGOUT</a></li>
                 @endif
             </ul>

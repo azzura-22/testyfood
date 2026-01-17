@@ -6,6 +6,7 @@ use App\Http\Controllers\GambarController;
 use App\Http\Controllers\GambartentangController;
 use App\Http\Controllers\KomentarController;
 use App\Http\Controllers\KontakController;
+use App\Http\Controllers\PostController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\userController;
 use GuzzleHttp\Middleware;
@@ -47,4 +48,16 @@ Route::post('/register/store', [userController::class, 'store'])->name('register
 Route::middleware(['user'])->group(function () {
     Route::post('/komentar/store',[KomentarController::class,'komentar'])->name('komentar.store');
     Route::get('/logout', [adminConteroller::class, 'logout'])->name('logout');
+    Route::get('/dashboard/{id}',[PostController::class,'index'])->name('posting.index');
+    Route::post('/posting/store', [PostController::class, 'store'])->name('posting.store');
+    Route::put('/posting/update/{id}', [PostController::class, 'edit'])->name('posting.update');
+
+    //route tampilan profile
+    Route::get('/profile/edit', [userController::class, 'editProfile'])->name('profile.edit');
+    Route::get('/profile/add',[PostController::class,'add'])->name('posting.add');
+    Route::get('/profile/{id}', [PostController::class, 'profile'])->name('profile.view');
+
+    Route::put('/post/berita/update/{id}', [PostController::class, 'ubah'])->name('posting.ubah');
+    Route::post('/post/berita/store', [PostController::class, 'berita'])->name('posting.tambah');
+    Route::delete('/post/berita/delete/{id}', [PostController::class, 'destroy'])->name('posting.hapus');
 });

@@ -173,7 +173,7 @@ use App\Models\Berita;
                         </p>
 
                         <p>
-                            {{ Str::limit($utama->isi, 120) }}
+                            {{ Str::limit($utama->isi, 240) }}
                         </p>
 
                         <a href="{{ route('berita.show', Crypt::encrypt($utama->id)) }}"

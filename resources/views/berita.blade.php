@@ -59,10 +59,10 @@
 <section class="container my-5">
     <div class="row align-items-center g-5">
 
-        <div class="col-md-6">
+        <div class="col-md-4">
             <img src="{{ asset('storage/fotoE/'.$utama->gambar) }}"
                  class="img-fluid rounded-4 shadow"
-                 style="height:350px; object-fit:cover;">
+                 style="height:350px; width:400px; object-fit:cover;">
         </div>
 
         <div class="col-md-6">
@@ -73,7 +73,7 @@
                 {{ \Carbon\Carbon::parse($utama->tanggal)->format('d M Y') }}
             </p>
 
-            <span class="badge bg-warning text-dark mb-3">
+            {{-- <span class="badge bg-warning text-dark mb-3">
                 {{ ucfirst($utama->kategori) }}
             </span>
 
@@ -82,7 +82,7 @@
                 {{
                     $ratingSum->where('id', $utama->id)->first()->komentars_sum_rating ?? 0
                 }}
-            </span>
+            </span> --}}
 
             <p>{{ Str::limit($utama->isi, 250) }}</p>
 
@@ -114,12 +114,12 @@
                     <p class="text-muted small">
                         {{ Str::limit($b->isi, 80) }}
                     </p>
-                    <span class="badge bg-warning text-dark ms-3 mt-2">
+                    {{-- <span class="badge bg-warning text-dark ms-3 mt-2">
                         Rating:
                         {{
                             $ratingSum->where('id', $b->id)->first()->komentars_sum_rating ?? 0
                         }}
-                    </span>
+                    </span> --}}
                     <a href="{{ route('berita.show', Crypt::encrypt($b->id)) }}"
                        class="text-warning text-decoration-none small fw-semibold">
                         Baca selengkapnya

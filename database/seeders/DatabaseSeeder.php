@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Post;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -31,6 +32,14 @@ class DatabaseSeeder extends Seeder
             'email' => 'user@gmail.com',
             'password' => bcrypt('111'),
             'role' => 'user',
+        ]);
+
+        Post:: create([
+            'user_id' => 2,
+            'bio' => 'Halo, saya pengguna baru di platform ini!',
+            'image_path' => null,
+            'usia' => '25',
+            'gender' => 'laki-laki',
         ]);
     }
 }

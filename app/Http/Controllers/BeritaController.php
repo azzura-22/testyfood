@@ -54,7 +54,7 @@ class BeritaController extends Controller
         $validate = $request->validate([
             'judul'=>'required',
             'isi'=>'required',
-            'gambar'=>'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'gambar'=>'image|mimes:jpeg,png,jpg,gif,svg|max:5120',
             'author'=>'required',
             'tanggal'=>'required',
             'kategori'=>'required',

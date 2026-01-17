@@ -6,190 +6,191 @@
 
 <style>
 /* ================= HERO ================= */
-.hero-tentang{
-    height:500px;
-    background:url('{{ asset("asset/food/WEBSITE MAGANG (TASTY FOOD)/ASET/Group 70.png") }}') center/cover no-repeat;
+.hero {
+    height: 520px;
+    background: url('{{ asset("asset/food/WEBSITE MAGANG (TASTY FOOD)/ASET/Group 70.png") }}')
+        center / cover no-repeat;
     position: relative;
 }
-.hero-tentang::after{
-    content:'';
-    position:absolute;
-    inset:0;
+.hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
     background: rgba(0,0,0,.55);
 }
-.hero-content{
+.hero-inner {
     position: relative;
     z-index: 2;
-    padding-top:120px;
-    color:#fff;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    color: #fff;
+}
+.hero-inner h1 {
+    font-size: 3rem;
+    font-weight: 800;
 }
 
 /* ================= GENERAL ================= */
-.section-padding{
-    padding:80px 0;
+.section {
+    padding: 100px 0;
 }
-.bg-soft{
-    background:#edecec;
+.section-soft {
+    background: #f4f4f4;
 }
-.section-title{
-    font-weight:700;
-    margin-bottom:16px;
+.section-title {
+    font-weight: 700;
+    margin-bottom: 20px;
 }
-
-/* ================= TITLE ACCENT ================= */
-.title-accent{
-    position: relative;
-    padding-left:14px;
-}
-.title-accent::before{
-    content:'';
-    position:absolute;
-    left:0;
-    top:2px;
-    height:100%;
-    width:4px;
-    background:#d4a373;
-    border-radius:2px;
-}
-.text-accent{
-    color:#d4a373;
+.text-muted {
+    line-height: 1.8;
 }
 
 /* ================= IMAGE ================= */
-.about-img{
-    height:260px;
-    object-fit:cover;
-    width:100%;
+.img-portrait {
+    height: 420px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+}
+.img-landscape {
+    height: 260px;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 18px;
+}
+
+/* ================= GRID ================= */
+.grid-2 {
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap: 20px;
+}
+
+/* ================= RESPONSIVE ================= */
+@media (max-width: 768px) {
+    .hero-inner h1 {
+        font-size: 2.2rem;
+    }
+    .section {
+        padding: 60px 0;
+    }
+    .grid-2 {
+        grid-template-columns: 1fr;
+    }
 }
 </style>
 
 {{-- ================= HERO ================= --}}
-<div class="hero-tentang">
-    <div class="container hero-content">
-        <h1 class="fw-bold">Tentang Kami</h1>
-        <p class="text-white-50 col-lg-6">
-            Mengenal lebih dekat perjalanan dan nilai yang kami bangun bersama.
-        </p>
-    </div>
-</div>
 
 @php
     $dataTentang = $tentang->first();
     $imgProfil = $gambartentang->where('tipe','profil')->take(2);
-    $imgVisi   = $gambartentang->where('tipe','visi')->take(2);
-    $imgMisi   = $gambartentang->where('tipe','misi')->first();
+    $imgVisi = $gambartentang->where('tipe','visi')->take(2);
+    $imgMisi = $gambartentang->where('tipe','misi')->first();
 @endphp
+<section class="hero">
+    <div class="container hero-inner">
+        <div>
+            <small class="text-uppercase text-white-50">Tasty Food</small>
+            <h1 class="mt-2">Tentang Kami</h1>
+        </div>
+    </div>
+</section>
 
-{{-- ================= ABOUT / TASTY FOOD (ABU-ABU) ================= --}}
-<div class="bg-soft">
-    <div class="container section-padding">
+{{-- ================= ABOUT ================= --}}
+<section class="section">
+    <div class="container">
         <div class="row align-items-center">
-            <div class="col-lg-6 mb-4 mb-lg-0">
-                <h5 class="section-title title-accent">
-                    <span class="text-accent">TASTY</span> FOOD
-                </h5>
+
+            {{-- TEXT --}}
+            <div class="col-lg-6">
+                <h5 class="section-title">TASTY FOOD</h5>
                 <p class="text-muted">
                     {{ $dataTentang->deskripsi ?? '-' }}
                 </p>
             </div>
 
+            {{-- IMAGE (2 FOTO) --}}
             <div class="col-lg-6">
-                <div class="d-flex gap-3">
-                    @forelse($imgProfil as $img)
+                <div class="grid-2">
+                    @foreach ($imgProfil as $img)
                         <img src="{{ asset('storage/tentang/'.$img->nama_file) }}"
-                             class="img-fluid rounded-4 shadow-sm about-img">
-                    @empty
-                        <img src="{{ asset('assets/img/default.jpg') }}"
-                             class="img-fluid rounded-4 shadow-sm about-img">
-                    @endforelse
+                             class="img-portrait">
+                    @endforeach
                 </div>
             </div>
+
         </div>
     </div>
-</div>
+</section>
 
-{{-- ================= VISI (PUTIH) ================= --}}
-<div class="container section-padding">
-    <div class="row align-items-center">
-        <div class="col-lg-6 mb-4 mb-lg-0">
-            <div class="d-flex gap-3">
-                @forelse ($imgVisi as $g)
-                    <img src="{{ asset('storage/tentang/'.$g->nama_file) }}"
-                         class="img-fluid rounded-4 shadow-sm about-img">
-                @empty
+{{-- ================= VISI ================= --}}
+<section class="section section-soft">
+    <div class="container">
+        <div class="row align-items-center">
+
+            {{-- IMAGE (2 FOTO) --}}
+            <div class="col-lg-6">
+                <div class="grid-2">
+                    @foreach ($imgVisi  as $img)
+                        <img src="{{ asset('storage/tentang/'.$img->nama_file) }}"
+                             class="img-landscape">
+                    @endforeach
+                </div>
+            </div>
+
+            {{-- TEXT --}}
+            <div class="col-lg-6">
+                <h5 class="section-title">VISI</h5>
+                <p class="text-muted">
+                    {{ $dataTentang->visi ?? '-' }}
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+{{-- ================= MISI ================= --}}
+<section class="section">
+    <div class="container">
+        <div class="row align-items-center">
+
+            {{-- TEXT --}}
+            <div class="col-lg-6">
+                <h5 class="section-title">MISI</h5>
+
+                {{-- Jika misi berupa paragraf --}}
+                <p class="text-muted">
+                    {{ $dataTentang->misi ?? '-' }}
+                </p>
+
+                {{-- Jika misi ingin list (opsional) --}}
+                {{--
+                <ul class="text-muted ps-3">
+                    @foreach(explode("\n", $dataTentang->misi ?? '') as $m)
+                        @if(trim($m) !== '')
+                            <li>{{ $m }}</li>
+                        @endif
+                    @endforeach
+                </ul>
+                --}}
+            </div>
+
+            {{-- IMAGE (DINAMIS DARI $imgMisi) --}}
+            <div class="col-lg-6">
+                @if ($imgMisi)
+                    <img src="{{ asset('storage/tentang/'.$imgMisi->nama_file) }}"
+                         class="img-landscape">
+                @else
                     <img src="{{ asset('assets/img/default.jpg') }}"
-                         class="img-fluid rounded-4 shadow-sm about-img">
-                @endforelse
+                         class="img-landscape">
+                @endif
             </div>
-        </div>
 
-        <div class="col-lg-6">
-            <h5 class="section-title title-accent">VISI</h5>
-            <p class="text-muted">
-                {{ $dataTentang->visi ?? '-' }}
-            </p>
         </div>
     </div>
-</div>
-
-
-{{-- ================= MISI (PUTIH) ================= --}}
-<div class="container section-padding">
-    <div class="row align-items-center">
-        <div class="col-lg-6 mb-4 mb-lg-0">
-            <h5 class="section-title title-accent">MISI</h5>
-            <ul class="text-muted ps-3">
-                @foreach(explode("\n", $dataTentang->misi ?? '') as $m)
-                    <li>{{ $m }}</li>
-                @endforeach
-            </ul>
-        </div>
-
-        <div class="col-lg-6">
-            @if($imgMisi)
-                <img src="{{ asset('storage/tentang/'.$imgMisi->nama_file) }}"
-                     class="img-fluid rounded-4 shadow-sm">
-            @endif
-        </div>
-    </div>
-</div>
-
-{{-- ================= NILAI KAMI (ABU-ABU) ================= --}}
-<div class="bg-soft">
-    <div class="container section-padding">
-        <div class="row text-center">
-            <div class="col-12 mb-4">
-                <h5 class="section-title title-accent">NILAI KAMI</h5>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="p-4 bg-white shadow-sm rounded-4 h-100">
-                    <h6 class="fw-bold">Kualitas</h6>
-                    <p class="text-muted small">
-                        Kami menjaga standar kualitas terbaik di setiap sajian.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="p-4 bg-white shadow-sm rounded-4 h-100">
-                    <h6 class="fw-bold">Kepercayaan</h6>
-                    <p class="text-muted small">
-                        Kepercayaan pelanggan adalah prioritas utama kami.
-                    </p>
-                </div>
-            </div>
-
-            <div class="col-md-4 mb-4">
-                <div class="p-4 bg-white shadow-sm rounded-4 h-100">
-                    <h6 class="fw-bold">Inovasi</h6>
-                    <p class="text-muted small">
-                        Kami terus berkembang mengikuti tren dan kebutuhan pasar.
-                    </p>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+</section>
 
 @endsection
