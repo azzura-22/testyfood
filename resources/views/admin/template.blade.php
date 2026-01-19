@@ -130,6 +130,13 @@
                     </a>
                 </li>
 
+                <li class="nav-item">
+                    <a class="nav-link {{ Route::is('admin.kontact*') ? 'active' : '' }}"
+                    href="{{ route('admin.kontact.index') }}">
+                        <i class="fa-solid fa-address-book"></i> Kontak
+                    </a>
+                </li>
+
                 <li class="nav-item mt-3">
                     <a class="nav-link" href="{{ route('logout.admin') }}">
                         <i class="fa-solid fa-right-from-bracket"></i> Logout
@@ -190,6 +197,13 @@
             <li class="nav-item">
                 <a class="nav-link px-3" href="{{ route('admin.perusahaan') }}">
                     <i class="fa-solid fa-building me-2"></i> Tentang Perusahaan
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link px-3 {{ Route::is('admin.kontact*') ? 'active' : '' }}"
+                href="{{ route('admin.kontact.index') }}">
+                    <i class="fa-solid fa-address-book me-2"></i> Kontak
                 </a>
             </li>
 

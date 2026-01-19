@@ -9,6 +9,7 @@ use App\Http\Controllers\KontakController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\TentangController;
 use App\Http\Controllers\userController;
+use App\Http\Controllers\KontactController;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 
@@ -33,6 +34,10 @@ Route::middleware(['admin'])->group(function () {
     Route::post('/admin/perusahaan/gambar/store/{id}',[GambartentangController::class,'add'])->name('perusahaan.gambar.store');
     Route::put('/admin/perusahaan/update/{id}',[TentangController::class,'edit'])->name('perusahaan.update');
     Route::get('/admin/perusahaan/gambar/delete/{id}',[GambartentangController::class,'delete'])->name('perusahaan.gambar.delete');
+    Route::get('/admin/kontak', [KontactController::class, 'index'])->name('admin.kontact.index');
+    Route::post('/admin/kontak/store',[KontactController::class,'add'])->name('admin.kontact.store');
+    Route::put('/admin/kontak/update/{id}',[KontactController::class,'edit'])->name('admin.kontact.update');
+    Route::get('/admin/kontak/delete/{id}',[KontactController::class,'delete'])->name('admin.kontact.destroy');
     Route::get('/admin/user',[adminConteroller::class,'user'])->name('admin.user');
 });
 

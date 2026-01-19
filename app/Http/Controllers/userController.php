@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Berita;
 use App\Models\Gambar;
 use App\Models\Gambartentang;
+use App\Models\Kontact;
 use App\Models\Tentang;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -20,7 +21,8 @@ class userController extends Controller
         return view('home',$data);
     }
     public function kontakKami(){
-        return view('kontakKami');
+        $data['kontact'] = Kontact::first();
+        return view('kontakKami',$data);
     }
     public function berita(){
         $data ['utama'] = Berita::latest()->first();
